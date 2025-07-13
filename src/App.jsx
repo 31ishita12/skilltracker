@@ -23,13 +23,27 @@ export default function App() {
         // 2) Build exactly those seven projects
         const rows = WHITELIST.map(name => {
           if (name === 'Work') {
+            // Sum the hours for the three sub-projects
             return { project: 'Work', hours: Math.round(workHours * 10) / 10 };
+          }
+          // Exclude the sub-projects from the main list (so they don't show up as their own rows)
+          if (WORK_SUBPROJECTS.includes(name)) {
+            return null;
           }
           const found = all.find(p => p.project === name);
           return { project: name, hours: found ? found.hours : 0 };
-        });
+        }).filter(Boolean);
 
-        setData(rows);
+        // 3) Progress track for donut charts (100h goal)
+        const GOAL = 100;
+        const gaugeRows = rows.map(({ project, hours }) => ({
+          project,
+          data: [
+            { name: 'Logged',    value: Math.min(hours, GOAL) },
+            { name: 'Remaining', value: Math.max(GOAL - hours, 0) }
+          ]
+        }));
+        setData(gaugeRows);
       })
       .catch(() => setData([]))
       .finally(() => setLoading(false));
@@ -42,7 +56,7 @@ export default function App() {
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold mb-6">
-        Project Progress (Last 24 h)
+        Ishita's Skill Tracker
       </h1>
       <table className="min-w-full table-auto border-collapse">
         <thead>
@@ -52,11 +66,11 @@ export default function App() {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ project, hours }) => (
+          {data.map(({ project, data }) => (
             <tr key={project}>
               <td className="border-t px-4 py-2">{project}</td>
-              <td className="border-t px-4 py-2 w-32 h-24">
-                <ProjectDonut data={[{ project, hours }]} />
+              <td className="border-t px-4 py-2 w-40 h-40">
+                <ProjectDonut data={data} />
               </td>
             </tr>
           ))}

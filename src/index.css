@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Fira Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
 }
 
 h1 {
@@ -41,7 +42,7 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Fira Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -58,11 +59,13 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+    font-family: 'Fira Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
   }
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
+    font-family: 'Fira Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
   }
 }
